@@ -10,8 +10,8 @@ class DbController extends Controller {
   public function actionInsertarUsuario() {
     $usuario = new \app\modelos\Usuario();
     $usuario->uuid();
-    $usuario->correo = "soporte@edesarrollos.info";
-    $usuario->agregarClave("Soporte@2024");
+    $usuario->correo = "soporte@eventos.com";
+    $usuario->agregarClave("Soporte@2026");
     $usuario->nombre = "Soporte";
     $usuario->apellidos = "Técnico";
     $usuario->rol = "admin";
