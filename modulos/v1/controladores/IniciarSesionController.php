@@ -16,11 +16,11 @@ class IniciarSesionController extends JsonController
   public function actionGuardar()
   {
     $req = Yii::$app->getRequest();
-    $correo = trim($req->getBodyParam("correo", ""));
+    $usuario = trim($req->getBodyParam("usuario", ""));
     $clave = trim($req->getBodyParam("clave", ""));
 
     $modelo = Sesion::find()
-      ->andWhere(["correo" => $correo])
+      ->andWhere(["correo" => $usuario])
       ->andWhere('eliminado is null')
       ->one();
 
