@@ -88,6 +88,7 @@
   "autoload": {
     "psr-4": {
       "v1\\": "modulos/v1",
+      "api\\": "modulos/api",
       "pdf\\": "modulos/pdf",
       "excel\\": "modulos/excel",
       "word\\": "modulos/word",

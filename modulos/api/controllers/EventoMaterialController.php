@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\api\controllers;
+namespace api\controllers;
 
 use app\modelos\EventoMaterial;
 use eDesarrollos\rest\JsonController;

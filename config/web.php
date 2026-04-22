@@ -55,14 +55,15 @@ $config = [
     ],
     'db' => $db,
     'urlManager' => [
-      'class' => 'eDesarrollos\rest\UrlManager'
+      'class' => 'eDesarrollos\rest\UrlManager',
+      'enableStrictParsing' => false,
     ],
   ],
 
   'params' => $params,
   'modules' => [
     'v1' => ['class' => 'v1\Modulo'],
-    'api' => ['class' => 'app\modules\api\Module'],
+    'api' => ['class' => 'api\Modulo'],
     'pdf' => ['class' => 'pdf\Modulo'],
     'excel' => ['class' => 'excel\Modulo'],
     'word' => ['class' => 'word\Modulo'],

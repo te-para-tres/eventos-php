@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\api\controllers;
+namespace api\controllers;
 
 use eDesarrollos\data\Respuesta;
 use eDesarrollos\rest\JsonController;

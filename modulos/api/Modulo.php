@@ -1,12 +1,12 @@
 <?php
 
-namespace app\modules\api;
+namespace api;
 
 use Yii;
 
-class Module extends \yii\base\Module {
+class Modulo extends \yii\base\Module {
 
-  public $controllerNamespace = 'app\modules\api\controllers';
+  public $controllerNamespace = 'api\controllers';
 
 
   /**
@@ -26,9 +26,5 @@ class Module extends \yii\base\Module {
     if (Yii::$app->getRequest()->isOptions) {
       Yii::$app->end();
     }
-    Yii::$app->getUser()->enableSession = false;
-    Yii::$app->getUser()->identityClass = 'app\modules\api\models\Aplicacion';
   }
-
-
 }
