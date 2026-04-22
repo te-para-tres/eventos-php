@@ -62,6 +62,7 @@ $config = [
   'params' => $params,
   'modules' => [
     'v1' => ['class' => 'v1\Modulo'],
+    'api' => ['class' => 'app\modules\api\Module'],
     'pdf' => ['class' => 'pdf\Modulo'],
     'excel' => ['class' => 'excel\Modulo'],
     'word' => ['class' => 'word\Modulo'],

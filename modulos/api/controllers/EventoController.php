@@ -1,13 +1,13 @@
 <?php
 
-namespace v1\controladores;
+namespace app\modules\api\controllers;
 
 use app\modelos\Evento;
 use eDesarrollos\data\Respuesta;
-use eDesarrollos\rest\AuthController;
+use eDesarrollos\rest\JsonController;
 use yii\db\Expression;
 
-class EventoController extends AuthController {
+class EventoController extends JsonController {
 
   public $modelClass = Evento::class;
 
