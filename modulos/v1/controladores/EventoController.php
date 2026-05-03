@@ -3,6 +3,7 @@
 namespace v1\controladores;
 
 use app\modelos\Evento;
+use app\modelos\EventoMedia;
 use eDesarrollos\data\Respuesta;
 use eDesarrollos\rest\AuthController;
 use yii\db\Expression;
@@ -33,6 +34,7 @@ class EventoController extends AuthController {
   public function actionGuardar() {
     try {
       $id = trim($this->req->getBodyParam("id", ""));
+      $anexos = $this->getBodyParam("anexos", []);
       $modelo = $this->modelClass::findOne($id);
 
       if ($modelo === null) {
@@ -65,6 +67,31 @@ class EventoController extends AuthController {
       }
 
       $modelo->refresh();
+
+      if (is_array($anexos)) {
+        foreach ($anexos as $anexo) {
+          $idAnexo = $anexo["id"] ?? "";
+          $eventoMedia = $idAnexo != "" ? EventoMedia::findOne($idAnexo) : null;
+
+          if ($eventoMedia === null) {
+            $eventoMedia = new EventoMedia();
+            $eventoMedia->uuid();
+            $eventoMedia->idEvento = $modelo->id;
+            $eventoMedia->creado = new Expression('now()');
+          } else {
+            $eventoMedia->eliminado = null;
+            $eventoMedia->modificado = new Expression('now()');
+          }
+
+          $eventoMedia->idMedia = $anexo["idMedia"] ?? null;
+
+          if (!$eventoMedia->save()) {
+            return (new Respuesta($eventoMedia))
+              ->esError()
+              ->mensaje("Hubo un problema al guardar el registro");
+          }
+        }
+      }
 
       return (new Respuesta($modelo))
         ->mensaje("Evento guardado");
