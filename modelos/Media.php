@@ -11,7 +11,7 @@ use Yii;
  * @property int|null $idUsuario
  * @property string $nombre
  * @property string|null $uuid
- * @property string|null $size
+ * @property int|null $peso
  * @property string|null $extension
  * @property string|null $mimetype
  * @property string|null $ruta
@@ -42,7 +42,9 @@ class Media extends ModeloBase
       [['idUsuario'], 'integer'],
       [['creado', 'modificado', 'eliminado'], 'safe'],
       [['id'], 'string', 'max' => 50],
-      [['nombre', 'uuid', 'size', 'mimetype'], 'string', 'max' => 100],
+      [['nombre', 'uuid', 'mimetype'], 'string', 'max' => 100],
+      [['peso'], 'default', 'value' => null],
+      [['peso'], 'integer'],
       [['extension'], 'string', 'max' => 5],
       [['ruta', 'descripcion'], 'string', 'max' => 500],
       [['id'], 'unique'],
@@ -59,7 +61,7 @@ class Media extends ModeloBase
       'idUsuario' => 'Id Usuario',
       'nombre' => 'Nombre',
       'uuid' => 'Uuid',
-      'size' => 'Size',
+      'peso' => 'Peso',
       'extension' => 'Extension',
       'mimetype' => 'Mimetype',
       'ruta' => 'Ruta',
@@ -77,7 +79,7 @@ class Media extends ModeloBase
       'idUsuario',
       'nombre',
       'uuid',
-      'size',
+      'peso',
       'extension',
       'mimetype',
       'ruta',

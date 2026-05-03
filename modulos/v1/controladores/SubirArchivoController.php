@@ -4,7 +4,7 @@ namespace v1\controladores;
 
 use app\modelos\Media;
 use eDesarrollos\data\Respuesta;
-use eDesarrollos\rest\AuthController;
+use eDesarrollos\rest\JsonController;
 use Ramsey\Uuid\Uuid;
 use Yii;
 use yii\db\Expression;
@@ -12,14 +12,12 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
-class SubirArchivoController extends AuthController {
+class SubirArchivoController extends JsonController {
 
   public function actionGuardar() {
     if (!$this->req->isPost) {
       throw new NotFoundHttpException();
     }
-
-    $usuario = $this->usuario;
 
     $this->res->format = Response::FORMAT_JSON;
     $archivo = UploadedFile::getInstanceByName('archivo');
@@ -59,12 +57,9 @@ class SubirArchivoController extends AuthController {
     }
 
     $uuid = Uuid::uuid1();
-
     $modelo = new Media();
-
     $modelo->creado = new Expression('now()');
     $modelo->uuid();
-    $modelo->idUsuario = $usuario->id;
     $modelo->uuid = $uuid->toString();
     $modelo->nombre = $archivo->name;
     $modelo->extension = $archivo->extension;

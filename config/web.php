@@ -11,7 +11,10 @@ $config = [
   'language' => 'es',
   'timezone' => 'America/Hermosillo',
   'defaultRoute' => 'v1/default',
+  'layoutPath' => '@app/modulos/v1/vistas/layouts',
+  'layout' => 'main',
   'aliases' => [
+    '@recursos' => '@app/publico/recursos',
     '@bower' => '@vendor/yidas/yii2-bower-asset/bower',
     '@npm'   => '@vendor/npm-asset',
     '@excel' => '@app/modulos/excel',
@@ -31,6 +34,9 @@ $config = [
     ],
     'cache' => [
       'class' => 'yii\caching\FileCache',
+    ],
+    'errorHandler' => [
+      'errorAction' => 'v1/default/error',
     ],
     'user' => [
       'identityClass' => 'app\modelos\Usuario',
@@ -55,8 +61,30 @@ $config = [
     ],
     'db' => $db,
     'urlManager' => [
-      'class' => 'eDesarrollos\rest\UrlManager',
-      'enableStrictParsing' => false,
+      'class' => 'eDesarrollos\rest\UrlManager'
+    ],
+    'response' => [
+      'class' => 'yii\web\Response',
+      'format' => yii\web\Response::FORMAT_JSON,
+      'on beforeSend' => function ($event) {
+        /** @var \yii\web\Response $response */
+        $response = $event->sender;
+
+        // Salir si no es un error a transformar o si ya está en el formato correcto
+        if (!($response->isClientError || $response->isServerError) || !is_array($response->data) || isset($response->data['errores'])) {
+          return;
+        }
+
+        $data = $response->data;
+        $r = new \eDesarrollos\data\Respuesta();
+
+        $r->esError($response->statusCode);
+        $r->mensaje($data['message'] ?? $data['mensaje'] ?? 'Ha ocurrido un error.');
+        if (isset($data['type'])) {
+          $r->cuerpo['type'] = $data['type'];
+        }
+        $response->data = $r->cuerpo;
+      }
     ],
   ],
 
