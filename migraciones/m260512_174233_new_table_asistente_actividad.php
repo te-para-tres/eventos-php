@@ -61,10 +61,10 @@ class m260512_174233_new_table_asistente_actividad extends Migration {
     $this->dropPrimaryKey("ActividadPK", "Actividad"); //8
     $this->dropTable("Actividad"); //7
 
-    $this->dropForeignKey("AEEAsistenteEventoFK", "AsistenteEvento"); //6
+    $this->dropForeignKey("AEEAAsistenteEventoFK", "AsistenteEvento"); //6
     $this->dropForeignKey("AEEAsistenteEventoFK", "AsistenteEvento"); //5
     $this->dropPrimaryKey("AsistenteEventoPK", "AsistenteEvento"); //4
-    $this->dropTable("AsitenteEvento"); //3
+    $this->dropTable("AsistenteEvento"); //3
 
     $this->dropPrimaryKey("AsistentePK", "Asistente"); //2
     $this->dropTable("Asistente"); //1
