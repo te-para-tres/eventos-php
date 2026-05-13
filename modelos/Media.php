@@ -8,7 +8,7 @@ use Yii;
  * Clase modelo para la tabla "Media".
  *
  * @property string $id
- * @property int|null $idUsuario
+ * @property string|null $idUsuario
  * @property string $nombre
  * @property string|null $uuid
  * @property int|null $peso
@@ -20,26 +20,23 @@ use Yii;
  * @property string|null $modificado
  * @property string|null $eliminado
  */
-class Media extends ModeloBase
-{
+class Media extends ModeloBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function tableName()
-  {
+  public static function tableName() {
     return 'Media';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function rules()
-  {
+  public function rules() {
     return [
       [['id', 'nombre'], 'required'],
       [['idUsuario'], 'default', 'value' => null],
-      [['idUsuario'], 'integer'],
+      [['idUsuario'], 'string', 'max' => 36],
       [['creado', 'modificado', 'eliminado'], 'safe'],
       [['id'], 'string', 'max' => 50],
       [['nombre', 'uuid', 'mimetype'], 'string', 'max' => 100],
@@ -54,8 +51,7 @@ class Media extends ModeloBase
   /**
    * {@inheritdoc}
    */
-  public function attributeLabels()
-  {
+  public function attributeLabels() {
     return [
       'id' => 'ID',
       'idUsuario' => 'Id Usuario',
@@ -72,8 +68,7 @@ class Media extends ModeloBase
     ];
   }
 
-  public function fields()
-  {
+  public function fields() {
     return [
       'id',
       'idUsuario',
@@ -90,8 +85,7 @@ class Media extends ModeloBase
     ];
   }
 
-  public function extraFields()
-  {
+  public function extraFields() {
     return [];
   }
 }

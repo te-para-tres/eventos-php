@@ -28,8 +28,9 @@ use Yii;
  * @property string|null $fechaCancelacion
  * @property string|null $visibilidad
  * @property string|null $idQr
+ * @property string|null $idActividad
  * 
- *
+ * @property Actividad $actividad
  * @property EventoMaterial[] $eventoMaterials
  * @property EventoMedia[] $eventoMedia
  * @property Carrera $carrera
@@ -65,7 +66,7 @@ class Evento extends ModeloBase {
    */
   public function rules() {
     return [
-      [['idUnidadAcademica', 'idCategoriaEvento', 'idCarrera', 'idImagenDestacada', 'nombre', 'descripcion', 'fechaInicio', 'fechaFin', 'capacidadMaxima', 'capacidadMinima', 'estado', 'lugar', 'latitud', 'longitud', 'creado', 'modificado', 'eliminado', 'fechaCancelacion', 'visibilidad', 'idQr'], 'default', 'value' => null],
+      [['idUnidadAcademica', 'idCategoriaEvento', 'idCarrera', 'idImagenDestacada', 'idActividad', 'nombre', 'descripcion', 'fechaInicio', 'fechaFin', 'capacidadMaxima', 'capacidadMinima', 'estado', 'lugar', 'latitud', 'longitud', 'creado', 'modificado', 'eliminado', 'fechaCancelacion', 'visibilidad', 'idQr'], 'default', 'value' => null],
       [['id'], 'required'],
       [['fechaInicio', 'fechaFin', 'creado', 'modificado', 'eliminado', 'fechaCancelacion'], 'safe'],
       [['capacidadMaxima', 'capacidadMinima'], 'default', 'value' => null],
@@ -76,6 +77,7 @@ class Evento extends ModeloBase {
       [['nombre', 'descripcion', 'estado', 'lugar'], 'string', 'max' => 255],
       [['id'], 'unique'],
       [['idCarrera'], 'exist', 'skipOnError' => true, 'targetClass' => Carrera::class, 'targetAttribute' => ['idCarrera' => 'id']],
+      [['idActividad'], 'exist', 'skipOnError' => true, 'targetClass' => Actividad::class, 'targetAttribute' => ['idActividad' => 'id']],
       [['idCategoriaEvento'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriaEvento::class, 'targetAttribute' => ['idCategoriaEvento' => 'id']],
       [['idImagenDestacada'], 'exist', 'skipOnError' => true, 'targetClass' => Media::class, 'targetAttribute' => ['idImagenDestacada' => 'id']],
       [['idUnidadAcademica'], 'exist', 'skipOnError' => true, 'targetClass' => UnidadAcademica::class, 'targetAttribute' => ['idUnidadAcademica' => 'id']],
@@ -90,6 +92,7 @@ class Evento extends ModeloBase {
       'id' => 'ID',
       'idUnidadAcademica' => 'Id Unidad Academica',
       'idCategoriaEvento' => 'Id Categoria Evento',
+      'idActividad' => 'Id Actividad',
       'idCarrera' => 'Id Carrera',
       'idImagenDestacada' => 'Id Imagen Destacada',
       'nombre' => 'Nombre',
@@ -117,6 +120,7 @@ class Evento extends ModeloBase {
       'idUnidadAcademica',
       'idCategoriaEvento',
       'idCarrera',
+      'idActividad',
       'idImagenDestacada',
       'nombre',
       'descripcion',
@@ -145,6 +149,8 @@ class Evento extends ModeloBase {
       'categoriaEvento',
       'imagenDestacada',
       'unidadAcademica',
+      'asistentes',
+      'actividad',
       'qr'
     ];
   }
@@ -152,6 +158,14 @@ class Evento extends ModeloBase {
 
   public function getEventoMaterial() {
     return $this->hasMany(EventoMaterial::class, ['idEvento' => 'id']);
+  }
+  public function getAsistentes() {
+    return $this->hasMany(Asistente::class, ['id' => 'idAsistente'])
+      ->viaTable('AsistenteEvento', ['idEvento' => 'id']);
+  }
+
+  public function getActividad() {
+    return $this->hasOne(Actividad::class, ['idActividad' => 'id']);
   }
 
   public function getEventoMedia() {
