@@ -148,6 +148,7 @@ class Evento extends ModeloBase {
       'materiales',
       'medias',
       'carrera',
+      'totalAsistentes',
       'categoriaEvento',
       'imagenDestacada',
       'unidadAcademica',
@@ -170,6 +171,10 @@ class Evento extends ModeloBase {
   public function getAsistentes() {
     return $this->hasMany(Asistente::class, ['id' => 'idAsistente'])
       ->viaTable('AsistenteEvento', ['idEvento' => 'id']);
+  }
+
+  public function getTotalAsistentes() {
+    return $this->getAsistentes()->count();
   }
 
   public function getActividad() {
