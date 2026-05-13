@@ -178,7 +178,7 @@ class Evento extends ModeloBase {
   }
 
   public function getActividad() {
-    return $this->hasOne(Actividad::class, ['idActividad' => 'id']);
+    return $this->hasOne(Actividad::class, ['id' => 'idActividad']);
   }
 
   public function getEventoMedia() {
