@@ -60,6 +60,7 @@ class AsistenteController extends JsonController {
 
       if ($asistente === null) {
         $asistente = new Asistente();
+        $asistente->uuid();
       }
 
       $asistente->load($this->req->getBodyParams(), '');
@@ -72,6 +73,7 @@ class AsistenteController extends JsonController {
       }
 
       $asistenteEvento = new \app\modelos\AsistenteEvento();
+      $asistenteEvento->uuid();
       $asistenteEvento->idAsistente = $asistente->id;
       $asistenteEvento->idEvento = $idEvento;
 
@@ -85,14 +87,14 @@ class AsistenteController extends JsonController {
       $transaction->commit();
 
       return clone(
-        new Respuesta($modelo)
+        (new Respuesta($modelo))
           ->mensaje("Asistente guardado exitosamente.")
       );
     } catch (\Throwable $e) {
       $transaction->rollBack();
       \Yii::error('Error al guardar asistente: ' . $e->getMessage(), __METHOD__);
       return clone(
-        new Respuesta()
+        (new Respuesta())
           ->esError(500)
           ->mensaje("Error interno al guardar el asistente.")
       );
