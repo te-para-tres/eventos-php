@@ -17,11 +17,16 @@ class EventoController extends AuthController {
   public function buscador(&$query, $request) {
     $id = $request->get($this->modeloID, "");
     $buscar = $request->get("buscar", "");
-
+    $idCategoriaEvento = $request->get("idCategoriaEvento", "");
+    $idCarrera = $request->get("idCarrera", "");
+    $idActividad = $request->get("idActividad", "");
+    $estado = $request->get("estado", "");
+    $visibilidad = $request->get("visibilidad", "");
+    $fechaDesde = $request->get("fechaDesde", "");
+    $fechaHasta = $request->get("fechaHasta", "");
     if ($id !== "") {
       $query->andWhere([$this->modeloID => $id]);
     }
-
     if ($buscar !== "") {
       $query->andWhere([
         "OR",
@@ -30,6 +35,27 @@ class EventoController extends AuthController {
         ["ilike", "estado", $buscar],
         ["ilike", "lugar", $buscar],
       ]);
+    }
+    if ($idCategoriaEvento !== "") {
+      $query->andWhere(["idCategoriaEvento" => $idCategoriaEvento]);
+    }
+    if ($idCarrera !== "") {
+      $query->andWhere(["idCarrera" => $idCarrera]);
+    }
+    if ($idActividad !== "") {
+      $query->andWhere(["idActividad" => $idActividad]);
+    }
+    if ($estado !== "") {
+      $query->andWhere(["estado" => $estado]);
+    }
+    if ($visibilidad !== "") {
+      $query->andWhere(["visibilidad" => $visibilidad]);
+    }
+    if ($fechaDesde !== "") {
+      $query->andWhere([">=", "fechaInicio", $fechaDesde]);
+    }
+    if ($fechaHasta !== "") {
+      $query->andWhere(["<=", "fechaFin", $fechaHasta]);
     }
   }
 

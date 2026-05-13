@@ -145,6 +145,8 @@ class Evento extends ModeloBase {
     return [
       'eventoMaterial',
       'eventoMedia',
+      'materiales',
+      'medias',
       'carrera',
       'categoriaEvento',
       'imagenDestacada',
@@ -159,6 +161,12 @@ class Evento extends ModeloBase {
   public function getEventoMaterial() {
     return $this->hasMany(EventoMaterial::class, ['idEvento' => 'id']);
   }
+
+  public function getMateriales() {
+    return $this->hasMany(Material::class, ['id' => 'idMaterial'])
+      ->viaTable('EventoMaterial', ['idEvento' => 'id']);
+  }
+
   public function getAsistentes() {
     return $this->hasMany(Asistente::class, ['id' => 'idAsistente'])
       ->viaTable('AsistenteEvento', ['idEvento' => 'id']);
@@ -170,6 +178,11 @@ class Evento extends ModeloBase {
 
   public function getEventoMedia() {
     return $this->hasMany(EventoMedia::class, ['idEvento' => 'id']);
+  }
+
+  public function getMedias() {
+    return $this->hasMany(Media::class, ['id' => 'idMedia'])
+      ->viaTable('EventoMedia', ['idEvento' => 'id']);
   }
 
   public function getCarrera() {
