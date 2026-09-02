@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 class IniciarSesionController extends JsonController
 {
 
-  public function actionGuardar()
+  public function actionPost()
   {
     $req = Yii::$app->getRequest();
     $usuario = trim($req->getBodyParam("usuario", ""));

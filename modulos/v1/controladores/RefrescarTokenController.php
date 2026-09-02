@@ -11,7 +11,7 @@ use Yii;
 class RefrescarTokenController extends AuthController
 {
 
-  public function actionGuardar()
+  public function actionPost()
   {
     $req = Yii::$app->getRequest();
 

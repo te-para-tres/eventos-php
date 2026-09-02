@@ -10,6 +10,7 @@ $config = [
   'bootstrap' => ['log'],
   'controllerNamespace' => 'app\comandos',
   'aliases' => [
+    '@publico' => '@app/publico',
     '@excel' => '@app/modulos/excel',
     '@pdf' => '@app/modulos/pdf',
     '@word' => '@app/modulos/word',
@@ -34,7 +35,10 @@ $config = [
     'migrate' => [
       'class' => 'yii\console\controllers\MigrateController',
       'migrationPath' => '@app/migraciones',
-    ]
+    ],
+    'openapi' => [
+      'class' => 'eDesarrollos\openapi\comandos\OpenapiController',
+    ],
   ],
   'params' => $params,
 ];

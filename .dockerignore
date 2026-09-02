@@ -1,0 +1,13 @@
+.git
+.github
+.vscode
+.idea
+vendor
+runtime
+.jwt-key
+.env
+config/db.php
+Dockerfile
+compose.yaml
+docker-compose.yml
+*.log

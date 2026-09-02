@@ -59,7 +59,7 @@ class EventoController extends AuthController {
     }
   }
 
-  public function actionGuardar() {
+  public function actionPost() {
     $transaction = null;
 
     try {

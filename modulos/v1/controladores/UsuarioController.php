@@ -65,7 +65,7 @@ class UsuarioController extends AuthController
     }
   }
 
-  public function actionGuardar()
+  public function actionPost()
   {
     $id = trim($this->req->getBodyParam("id", ""));
     $modelo = null;

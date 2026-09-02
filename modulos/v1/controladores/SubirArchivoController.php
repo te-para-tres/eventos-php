@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
 
 class SubirArchivoController extends JsonController {
 
-  public function actionGuardar() {
+  public function actionPost() {
     if (!$this->req->isPost) {
       throw new NotFoundHttpException();
     }

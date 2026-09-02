@@ -28,7 +28,7 @@ class AsistenteController extends JsonController {
     }
   }
 
-  public function actionGuardar() {
+  public function actionPost() {
     $idEvento = trim($this->req->getBodyParam("idEvento", ""));
     $expediente = trim($this->req->getBodyParam("expediente", ""));
     $modelo = null;

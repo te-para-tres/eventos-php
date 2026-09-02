@@ -1,14 +1,15 @@
 <?php
 
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=localhost;dbname=base',
-    'username' => 'base',
-    'password' => 'base',
-    'charset' => 'utf8',
+$host = getenv('DB_HOST') ?: 'localhost';
+$port = getenv('DB_PORT') ?: '5432';
+$name = getenv('DB_NAME') ?: 'base';
+$user = getenv('DB_USER') ?: 'base';
+$password = getenv('DB_PASSWORD') ?: 'base';
 
-    // Schema cache options (for production environment)
-    //'enableSchemaCache' => true,
-    //'schemaCacheDuration' => 60,
-    //'schemaCache' => 'cache',
+return [
+    'class' => 'yii\\db\\Connection',
+    'dsn' => "pgsql:host={$host};port={$port};dbname={$name}",
+    'username' => $user,
+    'password' => $password,
+    'charset' => 'utf8',
 ];

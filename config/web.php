@@ -15,6 +15,7 @@ $config = [
   'layout' => 'main',
   'aliases' => [
     '@recursos' => '@app/publico/recursos',
+    '@publico' => '@app/publico',
     '@bower' => '@vendor/yidas/yii2-bower-asset/bower',
     '@npm'   => '@vendor/npm-asset',
     '@excel' => '@app/modulos/excel',

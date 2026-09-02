@@ -9,7 +9,7 @@ use yii\db\Expression;
 class FormularioController extends JsonController {
   public $modelClass = '\\app\\modelos\\Formulario';
 
-  public function actionGuardar() {
+  public function actionPost() {
     $id = trim($this->req->getBodyParam("id", ""));
     $modelo = null;
 
