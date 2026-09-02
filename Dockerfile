@@ -5,6 +5,7 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/publico
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libicu-dev \
+        libonig-dev \
         libpq-dev \
         libzip-dev \
         unzip \
