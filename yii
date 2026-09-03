@@ -8,8 +8,16 @@
  * @license https://www.yiiframework.com/license/
  */
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'dev');
+$yiiEnv = getenv('YII_ENV') ?: 'dev';
+$yiiDebug = getenv('YII_DEBUG');
+
+defined('YII_ENV') or define('YII_ENV', $yiiEnv);
+defined('YII_DEBUG') or define(
+    'YII_DEBUG',
+    $yiiDebug === false
+        ? YII_ENV === 'dev'
+        : filter_var($yiiDebug, FILTER_VALIDATE_BOOLEAN)
+);
 
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';

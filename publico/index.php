@@ -1,12 +1,13 @@
 <?php
 
-// comment out the following two lines when deployed to production
-defined('YII_ENV') or define('YII_ENV', getenv('YII_ENV') ?: 'prod');
-// defined('YII_DEBUG') or define(
-//   'YII_DEBUG',
-//   filter_var(getenv('YII_DEBUG') ?: true, FILTER_VALIDATE_BOOLEAN)
-// );
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+$yiiEnv = getenv('YII_ENV') ?: 'prod';
+$yiiDebug = getenv('YII_DEBUG');
+
+defined('YII_ENV') or define('YII_ENV', $yiiEnv);
+defined('YII_DEBUG') or define(
+  'YII_DEBUG',
+  $yiiDebug === false ? false : filter_var($yiiDebug, FILTER_VALIDATE_BOOLEAN)
+);
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 
