@@ -1,7 +1,7 @@
 <?php
 
 $jwtKeyPath = __DIR__ . '/../.jwt-key';
-$jwtKey = file_exists($jwtKeyPath) ? trim(file_get_contents($jwtKeyPath)) : 'SecretKey123';
+$jwtKey = getenv('JWT_KEY') ?: (file_exists($jwtKeyPath) ? trim(file_get_contents($jwtKeyPath)) : 'SecretKey123');
 $openapi = require __DIR__ . '/openapi.php';
 
 return [

@@ -36,9 +36,9 @@ Estructura de Configuración
 Docker y Dokploy
 ----------------
 
-El proyecto incluye una imagen PHP/Apache y un servicio PostgreSQL. Antes de
-levantar la aplicación, el contenedor ejecuta automáticamente las migraciones
-de Yii configuradas en `migraciones/`.
+El proyecto incluye una imagen PHP/Apache que se conecta al PostgreSQL
+administrado por Dokploy. Antes de levantar la aplicación, el contenedor
+ejecuta automáticamente las migraciones de Yii configuradas en `migraciones/`.
 
 Para probarlo localmente:
 
@@ -50,12 +50,26 @@ En Dokploy, crea un servicio de tipo **Docker Compose**, selecciona
 `compose.yaml` como Compose Path y configura el dominio apuntando al puerto
 interno `80` del servicio `app`.
 
+Configura las siguientes variables de entorno en Dokploy:
+
+```text
+YII_ENV=prod
+YII_DEBUG=0
+JWT_KEY=<clave aleatoria segura>
+DB_HOST=<host interno de PostgreSQL>
+DB_PORT=5432
+DB_NAME=<nombre de la base de datos>
+DB_USER=<usuario de PostgreSQL>
+DB_PASSWORD=<contraseña de PostgreSQL>
+```
+
 Configura estos **Watch Paths** en Dokploy para que los cambios relevantes
 disparen un nuevo despliegue:
 
 ```text
 migraciones/**
 composer.json
+composer.lock
 Dockerfile
 compose.yaml
 ```

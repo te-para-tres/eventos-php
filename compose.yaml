@@ -6,32 +6,18 @@ services:
     expose:
       - "80"
     restart: unless-stopped
+    networks:
+      - dokploy-network
     environment:
       YII_ENV: ${YII_ENV:-prod}
       YII_DEBUG: ${YII_DEBUG:-0}
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: ${DB_NAME:-base}
-      DB_USER: ${DB_USER:-base}
-      DB_PASSWORD: ${DB_PASSWORD:-base}
-    depends_on:
-      db:
-        condition: service_healthy
+      JWT_KEY: ${JWT_KEY:?JWT_KEY debe configurarse en Dokploy}
+      DB_HOST: ${DB_HOST:?DB_HOST debe configurarse en Dokploy}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:?DB_NAME debe configurarse en Dokploy}
+      DB_USER: ${DB_USER:?DB_USER debe configurarse en Dokploy}
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD debe configurarse en Dokploy}
 
-  db:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${DB_NAME:-base}
-      POSTGRES_USER: ${DB_USER:-base}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-base}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-volumes:
-  postgres_data:
+networks:
+  dokploy-network:
+    external: true

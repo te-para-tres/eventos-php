@@ -1,15 +1,32 @@
-FROM php:8.2-apache
+FROM php:8.4-apache
 
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/publico
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/publico \
+    COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        libfreetype6-dev \
         libicu-dev \
+        libjpeg62-turbo-dev \
         libonig-dev \
+        libpng-dev \
         libpq-dev \
+        libxml2-dev \
         libzip-dev \
         unzip \
-    && docker-php-ext-install -j"$(nproc)" intl mbstring opcache pdo_pgsql zip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j"$(nproc)" \
+        dom \
+        gd \
+        intl \
+        mbstring \
+        opcache \
+        pdo_pgsql \
+        simplexml \
+        xml \
+        xmlreader \
+        xmlwriter \
+        zip \
     && sed -ri "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" \
         /etc/apache2/sites-available/*.conf \
         /etc/apache2/apache2.conf \
@@ -21,7 +38,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Esta capa solo cambia cuando cambian las dependencias.
-COPY composer.json ./
+COPY composer.json composer.lock ./
 RUN composer install \
     --no-dev \
     --no-interaction \
