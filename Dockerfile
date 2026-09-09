@@ -34,6 +34,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY docker/apache-publico.conf /etc/apache2/conf-available/eventues-api.conf
+RUN a2enconf eventues-api
 
 WORKDIR /var/www/html
 
