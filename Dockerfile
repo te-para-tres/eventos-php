@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.4.27-fpm-bookworm
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/publico \
     COMPOSER_ALLOW_SUPERUSER=1
