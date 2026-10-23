@@ -11,9 +11,14 @@ class CarreraController extends JsonController {
   public function buscador(&$query, $request) {
     $id = $request->get($this->modeloID, "");
     $buscar = $request->get("buscar", "");
+    $unidadAcademica = $request->get("idUnidadAcademica", "");
 
     if ($id !== "") {
       $query->andWhere([$this->modeloID => $id]);
+    }
+
+    if ($unidadAcademica !== "") {
+      $query->andWhere(["idUnidadAcademica" => $unidadAcademica]);
     }
 
     if ($buscar !== "") {

@@ -2,6 +2,7 @@
 
 namespace api;
 
+use app\modelos\Estudiante;
 use Yii;
 
 class Modulo extends \yii\base\Module {
@@ -26,5 +27,9 @@ class Modulo extends \yii\base\Module {
     if (Yii::$app->getRequest()->isOptions) {
       Yii::$app->end();
     }
+
+    $usuario = Yii::$app->getUser();
+    $usuario->enableSession = false;
+    $usuario->identityClass = Estudiante::class;
   }
 }
